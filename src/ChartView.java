@@ -32,6 +32,10 @@ public class ChartView
         chartController = c;
     }
 
+    /**
+     * Used to show the stage in the View class of the MVC model
+     * @param myStage - Input stage to show
+     */
     void Start(Stage myStage)
     {
         myStage.setTitle( "Fox Chart Program" );
@@ -87,17 +91,17 @@ public class ChartView
         // Menu choice handlers
         ////////////////////////////////////////////
 
-        barCMItem.setOnAction( (ae)->{ tfd.setText( "Bar Chart" ); } );
-        areaCMItem.setOnAction( (ae)->{ tfd.setText( "Area Chart" ); } );
-        lineCMItem.setOnAction( (ae)->{ tfd.setText( "Line Chart" ); } );
-        stackedCMItem.setOnAction( (ae)->{ tfd.setText( "Stacked Line Chart" ); } );
+        barCMItem.setOnAction( (ae)->{ ShowBarChart(); } );
+        areaCMItem.setOnAction( (ae)->{ ShowAreaChart(); } );
+        lineCMItem.setOnAction( (ae)->{ ShowLineChart(); } );
+        stackedCMItem.setOnAction( (ae)->{ ShowStackedLineChart(); } );
 
-        itemBar.setOnAction( (ae)->{ tfd.setText( "Bar Chart" ); } );
-        itemArea.setOnAction( (ae)->{ tfd.setText( "Area Chart" ); } );
-        itemLine.setOnAction( (ae)->{ tfd.setText( "Line Chart" ); } );
-        itemStacked.setOnAction( (ae)->{ tfd.setText( "Stacked Line Chart" ); } );
+        itemBar.setOnAction( (ae)->{ ShowBarChart(); } );
+        itemArea.setOnAction( (ae)->{ ShowAreaChart(); } );
+        itemLine.setOnAction( (ae)->{ ShowLineChart(); } );
+        itemStacked.setOnAction( (ae)->{ ShowStackedLineChart(); } );
 
-        itemOpen.setOnAction( (ae) -> {tfd.setText( "Open Input File" );});
+        itemOpen.setOnAction( (ae) -> {OpenDataFile();});
         itemExit.setOnAction( (ae) -> {Platform.exit();});
 
         ////////////////////////////////////////////
@@ -108,6 +112,46 @@ public class ChartView
         rootNode.setCenter( lbl );
         rootNode.setBottom( tfd );
         myStage.show();
+
+    }
+
+    /**
+     * Show the bar chart view of the data
+     */
+    void ShowBarChart()
+    {
+        tfd.setText( "Bar Chart" );
+    }
+
+    /**
+     * Show the area chart view of the data
+     */
+    void ShowAreaChart()
+    {
+        tfd.setText( "Area Chart" );
+    }
+
+    /**
+     * Show the line chart view of the data
+     */
+    void ShowLineChart()
+    {
+        tfd.setText( "Line Chart" );
+    }
+
+    /**
+     * Show the stacked line chart view of the data
+     */
+    void ShowStackedLineChart()
+    {
+        tfd.setText( "Stacked Line Chart" );
+    }
+
+    /**
+     * Open the input data file and read in the data points to be displayed via the model class
+     */
+    void OpenDataFile()
+    {
 
     }
 }
