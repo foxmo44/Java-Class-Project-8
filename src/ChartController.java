@@ -31,4 +31,15 @@ public class ChartController
     {
         chartView.Start(mainStage);
     }
+
+    /**
+     * Use the model to open and load the data to be charted
+     * @param strFilename - Name of the input file
+     * @return true if data is properly read from the file
+     */
+    public boolean OpenFile(String strFilename)
+    {
+        boolean bRetValue = false;
+        return (bRetValue);
+    }
 }

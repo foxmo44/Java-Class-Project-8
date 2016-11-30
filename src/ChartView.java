@@ -1,10 +1,12 @@
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.chart.Chart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import java.io.File;
 
 /**
  * <h1>Advanced Java - Project08Fox</h1>
@@ -18,11 +20,11 @@ import javafx.stage.Stage;
  */
 public class ChartView
 {
-    private ChartController chartController;
-
-    private Label lbl;
-    private TextField tfd;
-
+    private ChartController                   chartController;
+    private TextField                         tfd;
+    private CategoryAxis                      xAxis;
+    private NumberAxis                        yAxis;
+    private ScatterChart< String, Number >    myChart;
     /**
      * Default constructor for the Chart View class.
      * @param c - CpuController object
@@ -47,8 +49,8 @@ public class ChartView
         // Instantiate the controls
         ////////////////////////////////////////////
         MenuBar mb = new MenuBar();
-        lbl = new Label( "Replace with Chart" );
         tfd = new TextField( "Default Text" );
+        tfd.setDisable(true);   //Make read only
 
         ////////////////////////////////////////////
         // File menu
@@ -101,15 +103,20 @@ public class ChartView
         itemLine.setOnAction( (ae)->{ ShowLineChart(); } );
         itemStacked.setOnAction( (ae)->{ ShowStackedLineChart(); } );
 
-        itemOpen.setOnAction( (ae) -> {OpenDataFile();});
+        itemOpen.setOnAction( (ae) -> {OpenDataFile(myStage);});
         itemExit.setOnAction( (ae) -> {Platform.exit();});
 
         ////////////////////////////////////////////
         // Set the initial control locations
         ////////////////////////////////////////////
+
+        SetupChartAxis();
+
+        SetupChart();
+
         tfd.setContextMenu( cMenu );
         rootNode.setTop( mb );
-        rootNode.setCenter( lbl );
+        rootNode.setCenter( myChart );
         rootNode.setBottom( tfd );
         myStage.show();
 
@@ -118,7 +125,7 @@ public class ChartView
     /**
      * Show the bar chart view of the data
      */
-    void ShowBarChart()
+    private void ShowBarChart()
     {
         tfd.setText( "Bar Chart" );
     }
@@ -126,7 +133,7 @@ public class ChartView
     /**
      * Show the area chart view of the data
      */
-    void ShowAreaChart()
+    private void ShowAreaChart()
     {
         tfd.setText( "Area Chart" );
     }
@@ -134,7 +141,7 @@ public class ChartView
     /**
      * Show the line chart view of the data
      */
-    void ShowLineChart()
+    private void ShowLineChart()
     {
         tfd.setText( "Line Chart" );
     }
@@ -142,7 +149,7 @@ public class ChartView
     /**
      * Show the stacked line chart view of the data
      */
-    void ShowStackedLineChart()
+    private void ShowStackedLineChart()
     {
         tfd.setText( "Stacked Line Chart" );
     }
@@ -150,8 +157,69 @@ public class ChartView
     /**
      * Open the input data file and read in the data points to be displayed via the model class
      */
-    void OpenDataFile()
+    private void OpenDataFile(Stage myStage)
     {
+        FileChooser f = new FileChooser();
+        f.setTitle( "Select a data file" );
+        File selectedFile = f.showOpenDialog( myStage );
 
+        if( selectedFile != null )
+        {
+            if(chartController.OpenFile(selectedFile.toString()) == true)
+            {
+                tfd.setText( String.format("Opened data file: %s", selectedFile.toString()) );
+            }
+            else
+            {
+                tfd.setText( String.format("Could not open file: %s", selectedFile.toString()) );
+            }
+        }
+    }
+
+
+    /**
+     * Setup the axis for the various charts to use
+     */
+    private void SetupChartAxis()
+    {
+        xAxis = new CategoryAxis();
+        xAxis.setLabel( "Programmers" );
+        yAxis = new NumberAxis();
+        yAxis.setLabel( "Lines of code" );
+    }
+
+    private void SetupChart()
+    {
+        //BarChart< String, Number > myChart = new BarChart<>( xAxis, yAxis );
+        //AreaChart< String, Number > myChart = new AreaChart<>( xAxis, yAxis );
+        //LineChart< String, Number > myChart = new LineChart<>( xAxis, yAxis );
+        //StackedAreaChart< String, Number > myChart = new StackedAreaChart<>( xAxis, yAxis );
+        myChart = new ScatterChart<>( xAxis, yAxis );
+        myChart.setTitle( "1st Q" );
+
+        XYChart.Series< String, Number > jan = new XYChart.Series<>();
+        XYChart.Series< String, Number > feb = new XYChart.Series<>();
+        XYChart.Series< String, Number > mar = new XYChart.Series<>();
+
+        jan.setName( "Jan" );
+        jan.getData().add( new XYChart.Data< String, Number>( "Adam", 300 ) );
+        jan.getData().add( new XYChart.Data< String, Number>( "Bob", 325 ) );
+        jan.getData().add( new XYChart.Data< String, Number>( "Chris", 250 ) );
+
+        feb.setName( "Feb" );
+        feb.getData().add( new XYChart.Data< String, Number>( "Adam", 242 ) );
+        feb.getData().add( new XYChart.Data< String, Number>( "Bob", 183 ) );
+        feb.getData().add( new XYChart.Data< String, Number>( "Chris", 356 ) );
+
+        mar.setName( "Mar" );
+        mar.getData().add( new XYChart.Data< String, Number>( "Adam", 195 ) );
+        mar.getData().add( new XYChart.Data< String, Number>( "Bob", 225 ) );
+        mar.getData().add( new XYChart.Data< String, Number>( "Chris", 278 ) );
+
+        myChart.getData().add( jan );
+        myChart.getData().add( feb );
+        myChart.getData().add( mar );
+
+        myChart.setAnimated( true );
     }
 }
