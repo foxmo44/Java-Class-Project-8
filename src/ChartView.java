@@ -195,30 +195,41 @@ public class ChartView
         //LineChart< String, Number > myChart = new LineChart<>( xAxis, yAxis );
         //StackedAreaChart< String, Number > myChart = new StackedAreaChart<>( xAxis, yAxis );
         myChart = new ScatterChart<>( xAxis, yAxis );
-        myChart.setTitle( "1st Q" );
+        myChart.setTitle( "Programming Languages" );
 
-        XYChart.Series< String, Number > jan = new XYChart.Series<>();
-        XYChart.Series< String, Number > feb = new XYChart.Series<>();
-        XYChart.Series< String, Number > mar = new XYChart.Series<>();
+        XYChart.Series< String, Number > winter = new XYChart.Series<>();
+        XYChart.Series< String, Number > spring = new XYChart.Series<>();
+        XYChart.Series< String, Number > summer = new XYChart.Series<>();
+        XYChart.Series< String, Number > fall = new XYChart.Series<>();
 
-        jan.setName( "Jan" );
-        jan.getData().add( new XYChart.Data< String, Number>( "Adam", 300 ) );
-        jan.getData().add( new XYChart.Data< String, Number>( "Bob", 325 ) );
-        jan.getData().add( new XYChart.Data< String, Number>( "Chris", 250 ) );
+        winter.setName( "Winter" );
+        winter.getData().add( new XYChart.Data< String, Number>( "Python",  42 ) );
+        winter.getData().add( new XYChart.Data< String, Number>( "C++",     150 ) );
+        winter.getData().add( new XYChart.Data< String, Number>( "Java",    125 ) );
+        winter.getData().add( new XYChart.Data< String, Number>( "C#",      105 ) );
 
-        feb.setName( "Feb" );
-        feb.getData().add( new XYChart.Data< String, Number>( "Adam", 242 ) );
-        feb.getData().add( new XYChart.Data< String, Number>( "Bob", 183 ) );
-        feb.getData().add( new XYChart.Data< String, Number>( "Chris", 356 ) );
+        spring.setName( "Spring" );
+        spring.getData().add( new XYChart.Data< String, Number>( "Python",  65 ) );
+        spring.getData().add( new XYChart.Data< String, Number>( "C++",     110 ) );
+        spring.getData().add( new XYChart.Data< String, Number>( "Java",    178 ) );
+        spring.getData().add( new XYChart.Data< String, Number>( "C#",      120 ) );
 
-        mar.setName( "Mar" );
-        mar.getData().add( new XYChart.Data< String, Number>( "Adam", 195 ) );
-        mar.getData().add( new XYChart.Data< String, Number>( "Bob", 225 ) );
-        mar.getData().add( new XYChart.Data< String, Number>( "Chris", 278 ) );
+        summer.setName( "Summer" );
+        summer.getData().add( new XYChart.Data< String, Number>( "Python",  56 ) );
+        summer.getData().add( new XYChart.Data< String, Number>( "C++",     109 ) );
+        summer.getData().add( new XYChart.Data< String, Number>( "Java",    145 ) );
+        summer.getData().add( new XYChart.Data< String, Number>( "C#",      204 ) );
 
-        myChart.getData().add( jan );
-        myChart.getData().add( feb );
-        myChart.getData().add( mar );
+        fall.setName( "Fall" );
+        fall.getData().add( new XYChart.Data< String, Number>( "Python",  64 ) );
+        fall.getData().add( new XYChart.Data< String, Number>( "C++",     95 ) );
+        fall.getData().add( new XYChart.Data< String, Number>( "Java",    168 ) );
+        fall.getData().add( new XYChart.Data< String, Number>( "C#",      139 ) );
+
+        myChart.getData().add( winter );
+        myChart.getData().add( spring );
+        myChart.getData().add( summer );
+        myChart.getData().add( fall );
 
         myChart.setAnimated( true );
     }
