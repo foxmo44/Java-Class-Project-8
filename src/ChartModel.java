@@ -75,17 +75,17 @@ public class ChartModel
         m_Quarters.add(qrtSpring);
 
         Quarter qrtSummer = new Quarter("Summer");
-        qrtSummer.Add(new Language("Python", 65));
-        qrtSummer.Add(new Language("C++", 110));
-        qrtSummer.Add(new Language("Java", 178));
-        qrtSummer.Add(new Language("C#", 120));
+        qrtSummer.Add(new Language("Python", 56));
+        qrtSummer.Add(new Language("C++", 109));
+        qrtSummer.Add(new Language("Java", 145));
+        qrtSummer.Add(new Language("C#", 204));
         m_Quarters.add(qrtSummer);
 
         Quarter qrtFall = new Quarter("Fall");
-        qrtFall.Add(new Language("Python", 65));
-        qrtFall.Add(new Language("C++", 110));
-        qrtFall.Add(new Language("Java", 178));
-        qrtFall.Add(new Language("C#", 120));
+        qrtFall.Add(new Language("Python", 64));
+        qrtFall.Add(new Language("C++", 95));
+        qrtFall.Add(new Language("Java", 168));
+        qrtFall.Add(new Language("C#", 139));
         m_Quarters.add(qrtFall);
 
         return (true);

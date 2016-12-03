@@ -197,17 +197,38 @@ public class ChartView
      */
     private void ChartData(ArrayList<Quarter> seriesData)
     {
-        //Iterate through the object model that represents the quarter data for programming languages
-        for(Quarter quarter: seriesData)
+        XYChart.Series< String, Number > objSeries = null;
+        int iSeriesIndex = 0;
+
+        if(seriesData.size() > 0)
         {
-            System.out.println("-------------------");
-            System.out.println(quarter.GetName());
-            System.out.println("-------------------");
-            for( Language language : quarter.GetData())
+            //Iterate through the object model that represents the quarter data for programming languages
+            for (Quarter quarter : seriesData)
             {
-                System.out.printf("Language %s      %d\n", language.GetName(), language.GetQuantity());
+                System.out.println("-------------------");
+                System.out.println(quarter.GetName());
+                System.out.println("-------------------");
+
+                objSeries = new XYChart.Series<>();     //instantiate the series
+
+                objSeries.setName(quarter.GetName());   //Set the name of the series
+
+                for (Language language : quarter.GetData())
+                {
+                    System.out.printf("Language %s      %d\n", language.GetName(), language.GetQuantity());
+
+                    objSeries.getData().add( new XYChart.Data< String, Number>( language.GetName(),  language.GetQuantity() ) );
+                }
+
+                //add the series to the chart
+                myChart.getData().add(objSeries);
+
+                iSeriesIndex++;
             }
+
+            myChart.setAnimated( true );
         }
+
     }
 
     /**
@@ -219,16 +240,19 @@ public class ChartView
         xAxis.setLabel( "Programmers" );
         yAxis = new NumberAxis();
         yAxis.setLabel( "Lines of code" );
-    }
 
-    private void TestData()
-    {
         //BarChart< String, Number > myChart = new BarChart<>( xAxis, yAxis );
         //AreaChart< String, Number > myChart = new AreaChart<>( xAxis, yAxis );
         //LineChart< String, Number > myChart = new LineChart<>( xAxis, yAxis );
         //StackedAreaChart< String, Number > myChart = new StackedAreaChart<>( xAxis, yAxis );
         myChart = new ScatterChart<>( xAxis, yAxis );
         myChart.setTitle( "Programming Languages" );
+
+    }
+
+    private void TestData()
+    {
+
 
         XYChart.Series< String, Number > winter = new XYChart.Series<>();
         XYChart.Series< String, Number > spring = new XYChart.Series<>();
