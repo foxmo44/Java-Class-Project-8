@@ -8,6 +8,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * <h1>Advanced Java - Project08Fox</h1>
@@ -25,7 +26,18 @@ public class ChartView
     private TextField                         tfd;
     private CategoryAxis                      xAxis;
     private NumberAxis                        yAxis;
-    private ScatterChart< String, Number >    myChart;
+    private XYChart< String, Number >         myChart;
+    ChartType                                 m_eChartType;
+
+    public enum ChartType
+    {
+        eBarChart,
+        eAreaChart,
+        eStackedAreaChart,
+        eLineChart,
+    };
+
+
     /**
      * Default constructor for the Chart View class.
      * @param c - CpuController object
@@ -33,6 +45,7 @@ public class ChartView
     public ChartView(ChartController c)
     {
         chartController = c;
+        m_eChartType = ChartType.eBarChart;
     }
 
     /**
@@ -132,7 +145,8 @@ public class ChartView
      */
     private void ShowBarChart()
     {
-        tfd.setText( "Bar Chart" );
+        m_eChartType = ChartType.eBarChart;
+        RefreshChart();
     }
 
     /**
@@ -140,7 +154,8 @@ public class ChartView
      */
     private void ShowAreaChart()
     {
-        tfd.setText( "Area Chart" );
+        m_eChartType = ChartType.eAreaChart;
+        RefreshChart();
     }
 
     /**
@@ -148,7 +163,8 @@ public class ChartView
      */
     private void ShowLineChart()
     {
-        tfd.setText( "Line Chart" );
+        m_eChartType = ChartType.eLineChart;
+        RefreshChart();
     }
 
     /**
@@ -156,7 +172,8 @@ public class ChartView
      */
     private void ShowStackedLineChart()
     {
-        tfd.setText( "Stacked Line Chart" );
+        m_eChartType = ChartType.eStackedAreaChart;
+        RefreshChart();
     }
 
     /**
@@ -223,6 +240,8 @@ public class ChartView
                 //add the series to the chart
                 myChart.getData().add(objSeries);
 
+                objSeries = null;
+
                 iSeriesIndex++;
             }
 
@@ -241,53 +260,57 @@ public class ChartView
         yAxis = new NumberAxis();
         yAxis.setLabel( "Lines of code" );
 
-        //BarChart< String, Number > myChart = new BarChart<>( xAxis, yAxis );
-        //AreaChart< String, Number > myChart = new AreaChart<>( xAxis, yAxis );
-        //LineChart< String, Number > myChart = new LineChart<>( xAxis, yAxis );
-        //StackedAreaChart< String, Number > myChart = new StackedAreaChart<>( xAxis, yAxis );
-        myChart = new ScatterChart<>( xAxis, yAxis );
-        myChart.setTitle( "Programming Languages" );
-
+        CreateChart();
     }
 
-    private void TestData()
+    /**
+     * delete the current chart and recreate the chart based on the latest settings
+     */
+    private void RefreshChart()
     {
+        ArrayList< Quarter > Quarters;
 
+        myChart = null;
 
-        XYChart.Series< String, Number > winter = new XYChart.Series<>();
-        XYChart.Series< String, Number > spring = new XYChart.Series<>();
-        XYChart.Series< String, Number > summer = new XYChart.Series<>();
-        XYChart.Series< String, Number > fall = new XYChart.Series<>();
+        SetupChartAxis();
 
-        winter.setName( "Winter" );
-        winter.getData().add( new XYChart.Data< String, Number>( "Python",  42 ) );
-        winter.getData().add( new XYChart.Data< String, Number>( "C++",     150 ) );
-        winter.getData().add( new XYChart.Data< String, Number>( "Java",    125 ) );
-        winter.getData().add( new XYChart.Data< String, Number>( "C#",      105 ) );
+        CreateChart();
 
-        spring.setName( "Spring" );
-        spring.getData().add( new XYChart.Data< String, Number>( "Python",  65 ) );
-        spring.getData().add( new XYChart.Data< String, Number>( "C++",     110 ) );
-        spring.getData().add( new XYChart.Data< String, Number>( "Java",    178 ) );
-        spring.getData().add( new XYChart.Data< String, Number>( "C#",      120 ) );
+        Quarters = chartController.GetData();
 
-        summer.setName( "Summer" );
-        summer.getData().add( new XYChart.Data< String, Number>( "Python",  56 ) );
-        summer.getData().add( new XYChart.Data< String, Number>( "C++",     109 ) );
-        summer.getData().add( new XYChart.Data< String, Number>( "Java",    145 ) );
-        summer.getData().add( new XYChart.Data< String, Number>( "C#",      204 ) );
-
-        fall.setName( "Fall" );
-        fall.getData().add( new XYChart.Data< String, Number>( "Python",  64 ) );
-        fall.getData().add( new XYChart.Data< String, Number>( "C++",     95 ) );
-        fall.getData().add( new XYChart.Data< String, Number>( "Java",    168 ) );
-        fall.getData().add( new XYChart.Data< String, Number>( "C#",      139 ) );
-
-        myChart.getData().add( winter );
-        myChart.getData().add( spring );
-        myChart.getData().add( summer );
-        myChart.getData().add( fall );
-
-        myChart.setAnimated( true );
+        ChartData(Quarters);
     }
+
+    /**
+     * Create the chart based on the input argument
+     */
+    private void CreateChart()
+    {
+        switch (m_eChartType)
+        {
+            case eLineChart:
+                myChart = new LineChart<>(xAxis, yAxis);
+                break;
+
+            case eBarChart:
+                myChart = new BarChart<>(xAxis, yAxis);
+                break;
+
+            case eAreaChart:
+                myChart = new AreaChart<>(xAxis, yAxis);
+                break;
+
+            default:
+            case eStackedAreaChart:
+                myChart = new StackedAreaChart<>(xAxis, yAxis);
+                break;
+
+        }
+
+        myChart.setTitle( "Programming Languages" );
+    }
+
+
 }
+
+
