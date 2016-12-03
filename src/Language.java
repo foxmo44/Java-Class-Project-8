@@ -18,4 +18,16 @@ public class Language
         m_strName = strName;
         m_iQuantity = iQuantity;
     }
+
+    /**
+     * Getter for the name of the language
+     * @return Name of the language
+     */
+    public String GetName() { return(m_strName);}
+
+    /**
+     * Getter for the quantity of the language
+     * @return Quantity for the language
+     */
+    public int GetQuantity() { return (m_iQuantity);}
 }

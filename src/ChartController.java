@@ -1,6 +1,8 @@
 import javafx.scene.chart.Chart;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 /**
  * <h1>Advanced Java - Project08Fox</h1>
  * <h1>${FILE_NAME}  Class</h1>
@@ -14,13 +16,14 @@ import javafx.stage.Stage;
 public class ChartController
 {
     private ChartView chartView;
-
+    private ChartModel chartModel;
         /**
          * The default constructor for the Chart Controller class.  This will instantiate the Chart View class
          */
     public ChartController()
     {
         chartView = new ChartView(this);
+        chartModel = new ChartModel();
     }
 
         /**
@@ -33,13 +36,18 @@ public class ChartController
     }
 
     /**
+     * Used to provide the view class with data from the model class
+     * @return The data representing the quarter data for the programming languages
+     */
+    public ArrayList<Quarter> GetData() { return(chartModel.GetData());}
+
+    /**
      * Use the model to open and load the data to be charted
      * @param strFilename - Name of the input file
      * @return true if data is properly read from the file
      */
     public boolean OpenFile(String strFilename)
     {
-        boolean bRetValue = false;
-        return (bRetValue);
+        return (chartModel.OpenFile(strFilename));
     }
 }

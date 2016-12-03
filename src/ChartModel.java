@@ -14,13 +14,26 @@ public class ChartModel
 {
     private ArrayList< Quarter > m_Quarters;
 
+    /**
+     * Constructor for the Chart Model
+     */
+    public ChartModel()
+    {
+        m_Quarters = new ArrayList<Quarter>();
+    }
+
+    /**
+     * Open the file and read it into the object model for the programming language data
+     * @param strFilename
+     * @return true if the input file was successfully processed
+     */
     public boolean OpenFile(String strFilename)
     {
         boolean bRetValue = false;
 
-        HardcodeValues();
+        bRetValue = HardcodeValues();
 
-        bRetValue = ReadValues(strFilename);
+        //bRetValue = ReadValues(strFilename);
 
         return  bRetValue;
     }
@@ -45,7 +58,7 @@ public class ChartModel
         return(false);
     }
 
-    private void HardcodeValues()
+    private boolean HardcodeValues()
     {
         Quarter qrtWinter = new Quarter("Winter");
         qrtWinter.Add(new Language("Python", 42));
@@ -74,6 +87,8 @@ public class ChartModel
         qrtFall.Add(new Language("Java", 178));
         qrtFall.Add(new Language("C#", 120));
         m_Quarters.add(qrtFall);
+
+        return (true);
     }
 
 

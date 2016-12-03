@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * <h1>Advanced Java - Project08Fox</h1>
@@ -103,7 +104,11 @@ public class ChartView
         itemLine.setOnAction( (ae)->{ ShowLineChart(); } );
         itemStacked.setOnAction( (ae)->{ ShowStackedLineChart(); } );
 
-        itemOpen.setOnAction( (ae) -> {OpenDataFile(myStage);});
+        itemOpen.setOnAction( (ae) ->
+            {
+                OpenDataFile(myStage);
+            });
+
         itemExit.setOnAction( (ae) -> {Platform.exit();});
 
         ////////////////////////////////////////////
@@ -112,7 +117,7 @@ public class ChartView
 
         SetupChartAxis();
 
-        SetupChart();
+        //TestData();
 
         tfd.setContextMenu( cMenu );
         rootNode.setTop( mb );
@@ -159,15 +164,25 @@ public class ChartView
      */
     private void OpenDataFile(Stage myStage)
     {
+        String strSelectedFile;
+        ArrayList< Quarter > Quarters;
+
         FileChooser f = new FileChooser();
         f.setTitle( "Select a data file" );
         File selectedFile = f.showOpenDialog( myStage );
 
         if( selectedFile != null )
         {
-            if(chartController.OpenFile(selectedFile.toString()) == true)
+            strSelectedFile = selectedFile.toString();
+            System.out.println("Selected " + strSelectedFile);
+
+            if(chartController.OpenFile(strSelectedFile) == true)
             {
                 tfd.setText( String.format("Opened data file: %s", selectedFile.toString()) );
+
+                Quarters = chartController.GetData();
+
+                ChartData(Quarters);
             }
             else
             {
@@ -176,6 +191,24 @@ public class ChartView
         }
     }
 
+    /**
+     * Chart the input data
+     * @param seriesData - Data to be charted
+     */
+    private void ChartData(ArrayList<Quarter> seriesData)
+    {
+        //Iterate through the object model that represents the quarter data for programming languages
+        for(Quarter quarter: seriesData)
+        {
+            System.out.println("-------------------");
+            System.out.println(quarter.GetName());
+            System.out.println("-------------------");
+            for( Language language : quarter.GetData())
+            {
+                System.out.printf("Language %s      %d\n", language.GetName(), language.GetQuantity());
+            }
+        }
+    }
 
     /**
      * Setup the axis for the various charts to use
@@ -188,7 +221,7 @@ public class ChartView
         yAxis.setLabel( "Lines of code" );
     }
 
-    private void SetupChart()
+    private void TestData()
     {
         //BarChart< String, Number > myChart = new BarChart<>( xAxis, yAxis );
         //AreaChart< String, Number > myChart = new AreaChart<>( xAxis, yAxis );
