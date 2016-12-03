@@ -20,7 +20,29 @@ public class ChartModel
 
         HardcodeValues();
 
+        bRetValue = ReadValues(strFilename);
+
         return  bRetValue;
+    }
+
+    /**
+     * The primary function to get the data for each quarter for programming languages
+     * @return The arraylist containing the data for each quarter
+     */
+    public ArrayList <Quarter> GetData()
+    {
+        return (m_Quarters);
+    }
+
+    /**
+     * Read the input data and populate the object model for the series representing the quarters
+     * @param strFilename
+     * @return true if the data is read
+     */
+    private boolean ReadValues(String strFilename)
+    {
+        //TODO - READ THE DATA FROM THE INPUT FILES
+        return(false);
     }
 
     private void HardcodeValues()
