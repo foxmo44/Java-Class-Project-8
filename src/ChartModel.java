@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -31,9 +34,9 @@ public class ChartModel
     {
         boolean bRetValue = false;
 
-        bRetValue = HardcodeValues();
+        //bRetValue = HardcodeValues();
 
-        //bRetValue = ReadValues(strFilename);
+        bRetValue = ReadValues(strFilename);
 
         return  bRetValue;
     }
@@ -54,8 +57,64 @@ public class ChartModel
      */
     private boolean ReadValues(String strFilename)
     {
-        //TODO - READ THE DATA FROM THE INPUT FILES
-        return(false);
+        boolean bRetValue = false;
+        String inputLine;
+        String strPreviousQuarter;
+        Quarter qrtTemp = null;
+
+        try{
+
+            //FileReader fr = new FileReader( "TextData.txt" );
+            FileReader fr = new FileReader( strFilename );
+            BufferedReader br = new BufferedReader( fr );
+
+            strPreviousQuarter = "";
+
+            do{
+                inputLine = br.readLine();
+                if( inputLine != null ){
+                    //System.out.println( inputLine );
+                    String[] languageData = inputLine.split( "," );
+
+                    if(languageData.length == 3)
+                    {
+
+                        System.out.printf("%s\t%s\t%s\n", languageData[0], languageData[1], languageData[2]);
+                        if(languageData[0].compareTo(strPreviousQuarter) != 0)
+                        {
+                            //Store the previous quarter
+                            if((strPreviousQuarter != "") && (qrtTemp != null))
+                            {
+                                m_Quarters.add(qrtTemp);
+                            }
+
+                            //Create the new quarter
+                            qrtTemp = new Quarter(languageData[0]);
+                            strPreviousQuarter = languageData[0];
+                        }
+
+                        //Add the programming language data to the quarter
+                        if(qrtTemp!= null)
+                        {
+                            int lines = Integer.parseInt(languageData[2]);
+                            qrtTemp.Add(new Language(languageData[1], lines));
+                            bRetValue = true;
+                        }
+
+                    }
+                }
+            }while( inputLine != null );
+
+            if(qrtTemp != null)
+            {
+                m_Quarters.add(qrtTemp);    //do the final add
+            }
+
+        }catch( IOException e ){
+            e.printStackTrace();
+        }
+
+        return(bRetValue);
     }
 
     private boolean HardcodeValues()

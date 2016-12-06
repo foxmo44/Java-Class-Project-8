@@ -45,7 +45,7 @@ public class ChartView
     public ChartView(ChartController c)
     {
         chartController = c;
-        m_eChartType = ChartType.eBarChart;
+        m_eChartType = ChartType.eLineChart;    //type of chart to startup with.
     }
 
     /**
@@ -289,25 +289,30 @@ public class ChartView
         switch (m_eChartType)
         {
             case eLineChart:
+                System.out.println("Creating Line Chart");
                 myChart = new LineChart<>(xAxis, yAxis);
                 break;
 
             case eBarChart:
+                System.out.println("Creating Bar Chart");
                 myChart = new BarChart<>(xAxis, yAxis);
                 break;
 
             case eAreaChart:
+                System.out.println("Creating Area Chart");
                 myChart = new AreaChart<>(xAxis, yAxis);
                 break;
 
             default:
             case eStackedAreaChart:
+                System.out.println("Creating Stacked Area Chart");
                 myChart = new StackedAreaChart<>(xAxis, yAxis);
                 break;
 
         }
 
-        myChart.setTitle( "Programming Languages" );
+        myChart.setTitle( "Programming Languages Line Chart" );
+
     }
 
 
