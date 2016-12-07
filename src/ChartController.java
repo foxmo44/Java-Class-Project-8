@@ -1,6 +1,5 @@
 import javafx.scene.chart.Chart;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 
 /**
@@ -17,19 +16,20 @@ public class ChartController
 {
     private ChartView chartView;
     private ChartModel chartModel;
-        /**
-         * The default constructor for the Chart Controller class.  This will instantiate the Chart View class
-         */
+
+    /**
+     * The default constructor for the Chart Controller class.  This will instantiate the Chart View class
+     */
     public ChartController()
     {
         chartView = new ChartView(this);
         chartModel = new ChartModel();
     }
 
-        /**
-         * Simply pass on the main stage to the view class
-         * @param mainStage - main stage for the Java Fx GUI
-         */
+    /**
+     * Simply pass on the main stage to the view class
+     * @param mainStage - main stage for the Java Fx GUI
+     */
     void Start(Stage mainStage)
     {
         chartView.Start(mainStage);

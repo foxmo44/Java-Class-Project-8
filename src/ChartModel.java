@@ -79,7 +79,7 @@ public class ChartModel
                     if(languageData.length == 3)
                     {
 
-                        System.out.printf("%s\t%s\t%s\n", languageData[0], languageData[1], languageData[2]);
+                        //System.out.printf("%s\t%s\t%s\n", languageData[0], languageData[1], languageData[2]);
                         if(languageData[0].compareTo(strPreviousQuarter) != 0)
                         {
                             //Store the previous quarter
@@ -117,6 +117,10 @@ public class ChartModel
         return(bRetValue);
     }
 
+    /**
+     * This was in place until the data was read in via a file
+     * @return  hardcoded to true
+     */
     private boolean HardcodeValues()
     {
         Quarter qrtWinter = new Quarter("Winter");

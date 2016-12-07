@@ -45,7 +45,7 @@ public class ChartView
     public ChartView(ChartController c)
     {
         chartController = c;
-        m_eChartType = ChartType.eLineChart;    //type of chart to startup with.
+        m_eChartType = ChartType.eBarChart;    //type of chart to startup with.
     }
 
     /**
@@ -107,15 +107,53 @@ public class ChartView
         // Menu choice handlers
         ////////////////////////////////////////////
 
-        barCMItem.setOnAction( (ae)->{ ShowBarChart(); } );
-        areaCMItem.setOnAction( (ae)->{ ShowAreaChart(); } );
-        lineCMItem.setOnAction( (ae)->{ ShowLineChart(); } );
-        stackedCMItem.setOnAction( (ae)->{ ShowStackedLineChart(); } );
+        barCMItem.setOnAction( (ae)->
+        {
+            ShowBarChart();
+            rootNode.setCenter( myChart );
+        } );
 
-        itemBar.setOnAction( (ae)->{ ShowBarChart(); } );
-        itemArea.setOnAction( (ae)->{ ShowAreaChart(); } );
-        itemLine.setOnAction( (ae)->{ ShowLineChart(); } );
-        itemStacked.setOnAction( (ae)->{ ShowStackedLineChart(); } );
+        areaCMItem.setOnAction( (ae)->
+        {
+            ShowAreaChart();
+            rootNode.setCenter( myChart );
+        } );
+
+        lineCMItem.setOnAction( (ae)->
+        {
+            ShowLineChart();
+            rootNode.setCenter( myChart );
+        } );
+
+        stackedCMItem.setOnAction( (ae)->
+        {
+            ShowStackedLineChart();
+            rootNode.setCenter( myChart );
+        } );
+
+        itemBar.setOnAction( (ae)->
+        {
+            ShowBarChart();
+            rootNode.setCenter( myChart );
+        } );
+
+        itemArea.setOnAction( (ae)->
+        {
+            ShowAreaChart();
+            rootNode.setCenter( myChart );
+        } );
+
+        itemLine.setOnAction( (ae)->
+        {
+            ShowLineChart();
+            rootNode.setCenter( myChart );
+        } );
+
+        itemStacked.setOnAction( (ae)->
+        {
+            ShowStackedLineChart();
+            rootNode.setCenter( myChart );
+        } );
 
         itemOpen.setOnAction( (ae) ->
             {
@@ -129,6 +167,8 @@ public class ChartView
         ////////////////////////////////////////////
 
         SetupChartAxis();
+
+        CreateChart();
 
         //TestData();
 
@@ -222,9 +262,9 @@ public class ChartView
             //Iterate through the object model that represents the quarter data for programming languages
             for (Quarter quarter : seriesData)
             {
-                System.out.println("-------------------");
-                System.out.println(quarter.GetName());
-                System.out.println("-------------------");
+                //System.out.println("-------------------");
+                //System.out.println(quarter.GetName());
+                //System.out.println("-------------------");
 
                 objSeries = new XYChart.Series<>();     //instantiate the series
 
@@ -232,7 +272,7 @@ public class ChartView
 
                 for (Language language : quarter.GetData())
                 {
-                    System.out.printf("Language %s      %d\n", language.GetName(), language.GetQuantity());
+                    //System.out.printf("Language %s      %d\n", language.GetName(), language.GetQuantity());
 
                     objSeries.getData().add( new XYChart.Data< String, Number>( language.GetName(),  language.GetQuantity() ) );
                 }
@@ -240,7 +280,7 @@ public class ChartView
                 //add the series to the chart
                 myChart.getData().add(objSeries);
 
-                objSeries = null;
+                //objSeries = null;
 
                 iSeriesIndex++;
             }
@@ -259,8 +299,6 @@ public class ChartView
         xAxis.setLabel( "Programmers" );
         yAxis = new NumberAxis();
         yAxis.setLabel( "Lines of code" );
-
-        CreateChart();
     }
 
     /**
@@ -269,8 +307,6 @@ public class ChartView
     private void RefreshChart()
     {
         ArrayList< Quarter > Quarters;
-
-        myChart = null;
 
         SetupChartAxis();
 

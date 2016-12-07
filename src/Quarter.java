@@ -12,7 +12,13 @@ import java.util.ArrayList;
  */
 public class Quarter
 {
+    /**
+     * Name of the Quarter such as Fall, Winter, Spring, or Summer
+     */
     private String m_strName;
+    /**
+     * List of languages for the quarter
+     */
     private ArrayList< Language > m_languages;
 
     /**

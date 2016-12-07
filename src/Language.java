@@ -10,9 +10,22 @@
  */
 public class Language
 {
+    /**
+     * Name of the language
+     */
     private String m_strName;
+
+
+    /**
+     * Quantity of the lines of code
+     */
     private int m_iQuantity;
 
+    /**
+     * The constuctor for the data point
+     * @param strName - name of the language
+     * @param iQuantity - number of lines of code
+     */
     public Language(String strName, int iQuantity)
     {
         m_strName = strName;
