@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 /**
  * <h1>Advanced Java - Project08Fox</h1>
- * <h1>${FILE_NAME}  Class</h1>
- * This is the class description XXXXXXX
+ * <h1>Quarter  Class</h1>
+ * This is the class that stores the name of the quarter and all of the associated data points
  * <p>
  * <b>Create Date: 11/30/2016</b>
- * <b>Due Date: XXXXXXXX</b>
+ * <b>Due Date: 121316</b>
  *
  * @author Michael Fox
  */

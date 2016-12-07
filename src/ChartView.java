@@ -8,15 +8,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * <h1>Advanced Java - Project08Fox</h1>
- * <h1>${FILE_NAME}  Class</h1>
- * This is the class description XXXXXXX
+ * <h1>ChartView  Class</h1>
+ * This is the class that has all of the GUI components.  especially the charts
  * <p>
  * <b>Create Date: 11/30/2016</b>
- * <b>Due Date: XXXXXXXX</b>
+ * <b>Due Date: 121316</b>
  *
  * @author Michael Fox
  */
@@ -327,27 +326,31 @@ public class ChartView
             case eLineChart:
                 System.out.println("Creating Line Chart");
                 myChart = new LineChart<>(xAxis, yAxis);
+                myChart.setTitle( "Programming Languages Line Chart" );
                 break;
 
             case eBarChart:
                 System.out.println("Creating Bar Chart");
                 myChart = new BarChart<>(xAxis, yAxis);
+                myChart.setTitle( "Programming Languages Bar Chart" );
                 break;
 
             case eAreaChart:
                 System.out.println("Creating Area Chart");
                 myChart = new AreaChart<>(xAxis, yAxis);
+                myChart.setTitle( "Programming Languages Area Chart" );
                 break;
 
             default:
             case eStackedAreaChart:
                 System.out.println("Creating Stacked Area Chart");
                 myChart = new StackedAreaChart<>(xAxis, yAxis);
+                myChart.setTitle( "Programming Languages Stacked Chart" );
                 break;
 
         }
 
-        myChart.setTitle( "Programming Languages Line Chart" );
+
 
     }
 

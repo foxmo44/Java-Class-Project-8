@@ -1,14 +1,13 @@
-import javafx.scene.chart.Chart;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
  * <h1>Advanced Java - Project08Fox</h1>
- * <h1>${FILE_NAME}  Class</h1>
- * This is the class description XXXXXXX
+ * <h1>ChartController  Class</h1>
+ * This is the class is the controller class that ties the model and the view together
  * <p>
  * <b>Create Date: 11/30/2016</b>
- * <b>Due Date: XXXXXXXX</b>
+ * <b>Due Date: 121316</b>
  *
  * @author Michael Fox
  */
